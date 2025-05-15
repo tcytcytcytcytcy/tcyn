@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>廉政知識小測驗</title>
+  <style>
+    body {
+      font-family: "Helvetica Neue", sans-serif;
+      background: #f0f2f5;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+    }
+    .quiz-container {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .question {
+      margin-bottom: 15px;
+    }
+    h2 {
+      text-align: center;
+    }
+    button {
+      background-color: #2b7a78;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .result {
+      font-weight: bold;
+      margin-top: 20px;
+      color: green;
+      text-align: center;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-container">
+    <h2>廉政知識小測驗</h2>
+    <form id="quizForm">
+      <div class="question">
+        <p>1. 吹哨者制度的主要功能是什麼？</p>
+        <label><input type="radio" name="q1" value="B"> 鼓勵檢舉不法行為，保護檢舉人</label><br>
+        <label><input type="radio" name="q1" value="A"> 提供加薪機會</label><br>
+        <label><input type="radio" name="q1" value="C"> 揭露員工薪資</label><br>
+        <label><input type="radio" name="q1" value="D"> 給主管打分數</label>
+      </div>
+      <div class="question">
+        <p>2. 公務員辦理採購時應遵循的原則為？</p>
+        <label><input type="radio" name="q2" value="C"> 公開、公平、公正</label><br>
+        <label><input type="radio" name="q2" value="A"> 順從上級命令</label><br>
+        <label><input type="radio" name="q2" value="B"> 自行決定供應商</label><br>
+        <label><input type="radio" name="q2" value="D"> 優先選親友</label>
+      </div>
+      <button type="submit">提交答案</button>
+    </form>
+    <div id="result" class="result hidden"></div>
+  </div>
+
+  <script>
+    document.getElementById('quizForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const answers = {
+        q1: 'B',
+        q2: 'C'
+      };
+      let score = 0;
+      let total = Object.keys(answers).length;
+      for (let q in answers) {
+        const selected = document.querySelector(`input[name="${q}"]:checked`);
+        if (selected && selected.value === answers[q]) {
+          score++;
+        }
+      }
+      const resultEl = document.getElementById('result');
+      if (score === total) {
+        resultEl.textContent = `恭喜您全部答對！請填寫抽獎表單。`;
+      } else {
+        resultEl.textContent = `您答對了 ${score} 題，共 ${total} 題。請再試一次！`;
+      }
+      resultEl.classList.remove('hidden');
+    });
+  </script>
+</body>
+</html>
